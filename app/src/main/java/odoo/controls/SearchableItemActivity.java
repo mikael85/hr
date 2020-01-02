@@ -25,7 +25,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+/*import androidx.appcompat.app.ActionBarActivity;*/
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -34,7 +34,7 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
-
+import androidx.appcompat.app.AppCompatActivity;
 import com.odoo.R;
 import com.odoo.core.orm.ODataRow;
 import com.odoo.core.orm.OModel;
@@ -51,7 +51,7 @@ import java.util.List;
 import odoo.helper.ODomain;
 
 
-public class SearchableItemActivity extends ActionBarActivity implements
+public class SearchableItemActivity extends AppCompatActivity implements
         AdapterView.OnItemClickListener, TextWatcher, View.OnClickListener,
         OListAdapter.OnSearchChange, IOnQuickRecordCreateListener {
     public static final String TAG = SearchableItemActivity.class.getSimpleName();

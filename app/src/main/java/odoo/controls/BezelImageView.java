@@ -28,9 +28,9 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
-import android.support.v4.view.ViewCompat;
+import androidx.core.view.ViewCompat;
 import android.util.AttributeSet;
-import android.widget.ImageView;
+import androidx.appcompat.widget.AppCompatImageView;
 
 import com.odoo.R;
 
@@ -40,7 +40,7 @@ import com.odoo.R;
  * image contents, but is also flexible enough for use with other desired
  * aesthetics.
  */
-public class BezelImageView extends ImageView {
+public class BezelImageView extends AppCompatImageView {
     private Paint mBlackPaint;
     private Paint mMaskedPaint;
 
@@ -58,6 +58,13 @@ public class BezelImageView extends ImageView {
     private int mCachedWidth;
     private int mCachedHeight;
     private Context mContext;
+
+    final int ALL_SAVE_FLAG =  0x1F;
+    final int MATRIX_SAVE_FLAG =  0x01;
+    final int CLIP_SAVE_FLAG =  0x02;
+    final int HAS_ALPHA_LAYER_SAVE_FLAG =  0x04;
+    final int FULL_COLOR_LAYER_SAVE_FLAG =  0x08;
+    final int CLIP_TO_LAYER_SAVE_FLAG =  0x10;
 
     public BezelImageView(Context context) {
         this(context, null);
@@ -175,9 +182,10 @@ public class BezelImageView extends ImageView {
                 mMaskedPaint
                         .setColorFilter((mDesaturateOnPress && isPressed()) ? mDesaturateColorFilter
                                 : null);
-                cacheCanvas.saveLayer(mBoundsF, mMaskedPaint,
+                /*cacheCanvas.saveLayer(mBoundsF, mMaskedPaint,
                         Canvas.HAS_ALPHA_LAYER_SAVE_FLAG
-                                | Canvas.FULL_COLOR_LAYER_SAVE_FLAG);
+                                | Canvas.FULL_COLOR_LAYER_SAVE_FLAG);*/
+                cacheCanvas.saveLayer(mBoundsF, mMaskedPaint);
                 super.onDraw(cacheCanvas);
                 cacheCanvas.restoreToCount(sc);
             } else if (mDesaturateOnPress && isPressed()) {
@@ -185,9 +193,10 @@ public class BezelImageView extends ImageView {
                 cacheCanvas.drawRect(0, 0, mCachedWidth, mCachedHeight,
                         mBlackPaint);
                 mMaskedPaint.setColorFilter(mDesaturateColorFilter);
-                cacheCanvas.saveLayer(mBoundsF, mMaskedPaint,
+                /*cacheCanvas.saveLayer(mBoundsF, mMaskedPaint,
                         Canvas.HAS_ALPHA_LAYER_SAVE_FLAG
-                                | Canvas.FULL_COLOR_LAYER_SAVE_FLAG);
+                                | Canvas.FULL_COLOR_LAYER_SAVE_FLAG);*/
+                cacheCanvas.saveLayer(mBoundsF, mMaskedPaint);
                 super.onDraw(cacheCanvas);
                 cacheCanvas.restoreToCount(sc);
             } else {
